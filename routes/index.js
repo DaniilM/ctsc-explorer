@@ -302,7 +302,7 @@ router.get('/ext/summary', function(req, res) {
                 if (hashrate == 'There was an error. Check your console.') {
                   hashrate = 0;
                 }
-                let masternodesonline = masternodeStats.enabled;
+                var masternodesonline = masternodeStats.enabled;
                 var masternodesoffline = Math.floor(masternodestats.total - masternodesonline);
                 res.send({ data: [{
                   difficulty: difficulty,
