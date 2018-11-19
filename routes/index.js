@@ -296,14 +296,14 @@ router.get('/ext/summary', function(req, res) {
     }
     lib.get_hashrate(function(hashrate) {
       lib.get_connectioncount(function(connections){
-        lib.get_masternodecount(function(masternodestotal){
-          lib.get_masternodecountonline(function(masternodesonline){
+        lib.get_masternodecount(function(masternodestats){
             lib.get_blockcount(function(blockcount) {
               db.get_stats(settings.coin, function (stats) {
                 if (hashrate == 'There was an error. Check your console.') {
                   hashrate = 0;
                 }
-                var masternodesoffline = Math.floor(masternodestotal - masternodesonline);
+                let masternodesonline = masternodeStats.enabled;
+                var masternodesoffline = Math.floor(masternodestats.total - masternodesonline);
                 res.send({ data: [{
                   difficulty: difficulty,
                   difficultyHybrid: difficultyHybrid,
@@ -317,7 +317,6 @@ router.get('/ext/summary', function(req, res) {
                 }]});
               });
             });
-          });
         });
       });
     });
